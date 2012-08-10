@@ -16,7 +16,7 @@ To get the source:
 
 # Example
 
-    use Rack::Preview, [%Q{<h1 style="font-size: 10em;">Welcome to the preview!</h1>}]
+    use Rack::Preview, %Q{<h1 style="font-size: 10em;">Welcome to the preview!</h1>}
 
     run lambda { |env| [200, { "Content-Type" => "text/html" }, ["Hello world!"]] }
 
