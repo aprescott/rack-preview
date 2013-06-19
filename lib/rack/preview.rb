@@ -18,6 +18,7 @@ class Rack::Preview
     opera_preview  = ua_string =~ /Opera/                               # Opera documentation says they'll send X-Purpose: preview
         
     if previewing && (safari_preview || opera_preview)
+      response.close if response.respond_to?(:close)
       [status, headers, @preview]
     else
       [status, headers, response]
