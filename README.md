@@ -16,9 +16,26 @@ To get the source:
 
 # Example
 
-    use Rack::Preview, %Q{<h1 style="font-size: 10em;">Welcome to the preview!</h1>}
+```ruby
+require "rack/preview"
 
-    run lambda { |env| [200, { "Content-Type" => "text/html" }, ["Hello world!"]] }
+Rack::Server.start(app: Rack::Builder.app do
+  use Rack::Preview, %Q{<h1 style="font-size: 10em;">Welcome to the preview!</h1>}
+
+  run lambda { |env| [200, { "Content-Type" => "text/html" }, ["Hello world!"]] }
+end)
+```
+
+```shell
+# Regular response.
+$ curl http://localhost:8080/
+Hello world!
+
+# Responses to requests with X-Purpose
+# from the relevant browsers.
+$ curl -H "X-Purpose: preview" --user-agent "Safari" http://localhost:8080/
+<h1 style="font-size: 10em;">Welcome to the preview!</h1>
+```
 
 # Contribute
 
